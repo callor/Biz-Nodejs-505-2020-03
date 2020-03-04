@@ -22,7 +22,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+app.use(logger('dev',{
+    skip:function(req,res) { return res.statusCode < 400}
+}));
 
 // 만약 json형태의 데이터들이 있으면
 // 자동 parsing을 수행해달라
