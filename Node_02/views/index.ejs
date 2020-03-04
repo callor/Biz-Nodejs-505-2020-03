@@ -1,0 +1,35 @@
+<!--
+ejs (embeded java script)
+HTML 코드에 서버로부터 전송된 데이터를
+합성하여 randering을 수행할 목적으로 
+만들어진 특별한 view templete
+-->
+<%#
+ejs 에서 주석에 해당하는 부분
+실제 사용자에게 보여지는 
+view에는 나타나지 않는 주석
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <!-- 
+      서버에서 json 형태의 모델에 담긴 데이터를
+      대신 표시할 json 변수형
+    -->
+    <h1><%= title %></h1>
+    <!--
+      모델에 담긴 데이터를 대신 표시할
+      json 변수형
+      =과 차이는 
+      %= HTML tag를 무시하고 모두 표현
+      %- HTML tag를 반영하여 표현
+    -->
+    <p>Welcome to <%- title %></p>
+    
+  </body>
+</html>
