@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h2><%= pageTitle %></h2>
+    <form method="POST">
+        <input type="hidden" name="_id" value="<%- item._id %>">
+        <input type="text" value="<%- item.strName %>"
+                name="strName" placeholder="이름"><br>
+
+        <input type="text"  value="<%- item.strAddr %>"
+                name="strAddr" placeholder="주소"><br>
+
+        <input type="text"  value="<%- item.strTel %>"
+                name="strTel" placeholder="전화번호"><br>
+
+        <input type="text"  value="<%- item.intAge %>"
+                name="intAge" placeholder="나이"><br>
+
+        <button>저장</button>
+    </form>
+</body>
+</html>

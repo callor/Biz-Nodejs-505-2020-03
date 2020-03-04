@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h2>회원리스트</h2>
+    <table border='1'>
+        <tr>
+            <th>이름</th>
+            <th>주소</th>
+            <th>전화번호</th>
+            <th>나이</th>
+            <th>!</th>
+        </tr>
+        <% members.forEach(function(mem){  %>
+            <tr>
+                <td>
+                    <a href="/member/update/<%- mem._id %>">
+                    <%- mem.strName %>
+                    </a>
+                </td>
+                <td><%- mem.strAddr %></td>
+                <td><%- mem.strTel %></td>
+                <td><%- mem.intAge %></td>
+                <td>
+                    <a href="/member/delete/<%- mem._id %>">
+                        삭제
+                    </a>
+                </td>
+            </tr>
+        <%   })  %>
+    </table>
+    <a href="/member/insert">추가</a>
+</body>
+</html>
