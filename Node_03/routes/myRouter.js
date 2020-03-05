@@ -28,13 +28,17 @@ var bookVO = require("../models/book")
 // res에 응답할 정보, 데이터들을 추가하여
 // web에게 응답을 수행한다.
 router.get("/",function(req,res,next){
-    bookVO.findOne({}, function(err,data){
-        res.json(data)
+    bookVO.find({}, function(err,data){
+        // res.json(data)
+        res.render("books/list",{books:data})
     })
 })
 
 router.get("/insert",function(req,res){
-    res.render("write")
+    var book = new bookVO()
+    res.render("books/write",{
+        book:book,btnText:'추가'
+    })
 })
 
 // form POST method로 값이 전송되어 왔을때
@@ -62,11 +66,19 @@ router.post("/insert",function(req,res){
     // db로 부터 추가된 데이터를
     // findOne하여 data에 담아준다.
     newVO.save(req.body,function(err,data){
-        res.json(data)
+        // res.json(data)
+        res.redirect("/book")
     })
 
 
 }) // router.post("/insert")
+
+router.get("/name",function(req,res){
+    let name = req.query.name
+    bookVO.findOne({BName:name},function(err,data){
+        res.json(data)
+    })
+})
 
 // id값을 path valiable로 수신하여
 // 데이터를 조회한후 write폼으로 전송
@@ -76,8 +88,10 @@ router.get('/update/:id',function(req,res){
     // req.params에 담겨져 온다
     let id = req.params.id
     bookVO.findOne({_id:id},function(err,data){
-        res.json(data)
-        // res.render("write",{data})
+        // res.json(data)
+        res.render("books/write",
+            {book:data,btnText:'수정'}
+        )
     })
 })
 
@@ -90,19 +104,22 @@ router.get('/update/:id',function(req,res){
 router.post("/update/:id",function(req,res){
 
     var id = req.params.id
-    var updateVO = new bookVO(req.body)
     bookVO.update({_id:id},
-        {$set:updateVO},
+        {$set:req.body},
         function(err,data){
-            res.json(data)
+            // res.json(data)
+            res.redirect("/book")
         })
 }) // router.post("/update")
 
 // router.delete("/delete/:id")
 router.get("/delete/:id",function(req,res){
+
+    let id = req.params.id
     bookVO.deleteOne({_id:id},
         function(err,data){
-        res.json(data)        
+        // res.json(data)        
+        res.redirect("/book")
     })
 })
 

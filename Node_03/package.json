@@ -12,6 +12,7 @@
     "express": "*",
     "http-errors": "*",
     "mongoose": "^5.9.3",
-    "morgan": "*"
+    "morgan": "*",
+    "pug": "^2.0.4"
   }
 }
