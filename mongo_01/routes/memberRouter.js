@@ -27,7 +27,8 @@ router.get("/update/:id",function(req,res){
 router.post("/update/:id",function(req,res){
     let id = req.params.id
 
-    memberVO.update({_id:id},{$set:req.body}, function(err,data){
+    memberVO.update({_id:id},{$set:req.body}, 
+        function(err,data){
         res.redirect("/member/list")
     })
 

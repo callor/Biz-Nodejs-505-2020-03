@@ -1,0 +1,17 @@
+{
+  "name": "node-03",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "*",
+    "debug": "*",
+    "ejs": "*",
+    "express": "*",
+    "http-errors": "*",
+    "mongoose": "^5.9.3",
+    "morgan": "*"
+  }
+}

@@ -6,3 +6,4 @@
     npm install -save morgan
     npm install -save mongoose
     npm install
+    
