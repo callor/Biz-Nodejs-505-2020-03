@@ -1,0 +1,10 @@
+<footer>
+    <address>Copy Right &copy; callor@callor.com</address>
+    <p><%- book.name %></p>
+    <p><%- book.writer %></p>
+    <p><%- book.comp %></p>
+    <p><%- book.year %></p>
+    <% books.forEach(function(b) { %>
+        <p><%= b.name %> : <%- b.name %></p>
+    <% }) %>
+</footer>

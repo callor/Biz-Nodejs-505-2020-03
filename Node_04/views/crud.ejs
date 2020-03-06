@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+        $(function(){
+            $("#btn_insert").click(function(){
+                $.ajax({
+                    url : "/crud/book/insert",
+                    type : 'POST',
+                    data : $("form").serialize(),
+                    success:function(result) {
+                        alert("성공")
+                    },
+                    error:function() {
+                        alert('서버통신류')
+                    }
+                })
+            })
+
+            $("#btn_update").click(function(){
+                let id = $("#id").val()
+                $.ajax({
+                    url : "/crud/book/update/" + id + "/update",
+                    type : "PUT",
+                    data : $("form").serialize(),
+                    success:function(result) {
+                        alert("성공")
+                    },
+                    error:function() {
+                        alert('서버통신류')
+                    }
+                })
+            })
+
+            $("#btn_delete").click(function(){
+                $.ajax({
+                    url : "/crud/book/30/delete",
+                    type:"DELETE"
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
