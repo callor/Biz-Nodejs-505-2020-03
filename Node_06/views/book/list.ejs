@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ('../include_head') %>
+<script>
+$(function(){
+    $(".btn-insert").click(function(){
+        document.location.href = "/book/insert"
+    })
+
+    $(".book_tr").click(function(){
+        let id = $(this).data('id')
+        document.location.href="/book/update/" + id
+    })
+})
+
+</script>
+
+</head>
+<body>
+    <header class="w3-container w3-green w3-center">
+        <h3>BOOK INFO</h3>
+    </header>
+    <section class="w3-container">
+        <table class="w3-table-all">
+            <tr>
+                <th>No</th>
+                <th>도서명</th>
+                <th>저자</th>
+                <th>출판사</th>
+                <th>가격</th>
+            </tr>
+            <% if(books) {   %>
+                <% books.forEach(function(book,index) { %>
+                    <tr class="book_tr" data-id="<%- book._id %>">
+                        <td><%- index + 1 %></td>
+                        <td><%- book.bTitle %></td>
+                        <td><%- book.bWriter %></td>
+                        <td><%- book.bComp %></td>
+                        <td><%- book.bPrice %></td>
+                    </tr>
+                <% }) %>
+            <%  } else {    %>
+               <tr><td colspan="5">데이터가 없음!!!</td></tr>     
+            <% }  %>
+        </table>
+        <button class="w3-button w3-blue w3-right btn-insert">추가</button>
+    </section>
+</body>
+</html>
