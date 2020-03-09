@@ -23,16 +23,28 @@ block content
             - var inputClasses = ['w3-input','w3-border']
             .w3-container
                 label(for="bTitle").w3-text-blue 도서명
-                input#bTitle(name="bTitle",value=book.bTitle, class=inputClasses)
+                input#bTitle(
+                    name="bTitle",
+                    value=book.bTitle, 
+                    class=inputClasses)
             .w3-container
                 label(for="bWriter").w3-text-blue 저자
-                input#bWriter(name="bWriter",value=book.bWriter,class=inputClasses)
+                input#bWriter(
+                    name="bWriter",
+                    value=book.bWriter,
+                    class=inputClasses)
             .w3-container
                 label(for="bComp").w3-text-blue 출판사
-                input#bComp(name="bComp",value=book.bComp,class=inputClasses)
+                input#bComp(
+                    name="bComp",
+                    value=book.bComp,
+                    class=inputClasses)
             .w3-container
                 label(for="bPrice").w3-text-blue 가격
-                input#bPrice(name="bPrice",value=book.bPrice,class=inputClasses)
+                input#bPrice(
+                    name="bPrice",
+                    value=book.bPrice,
+                    class=inputClasses)
             - var btnClasses = ['w3-button','w3-right']
             button(class=btnClasses).w3-blue.btn-save 저장
             if formTitle == 'UPDATE'
