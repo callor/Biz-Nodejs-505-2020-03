@@ -1,0 +1,28 @@
+{
+    "callor" : {
+        "username" : "ems",
+        "password" : "ems",
+        "database" : "emsDB",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql",
+        "operatorAliases" : false
+    },
+    "development" : {
+        "username" : "ems",
+        "password" : "ems",
+        "database" : "emsDB",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql",
+        "operatorAliases" : false
+    },
+
+
+    "production" : {
+        "username" : "ems",
+        "password" : "ems",
+        "database" : "emsDB",
+        "host" : "127.0.0.1",
+        "dialect" : "mysql",
+        "operatorAliases" : false
+    }
+}

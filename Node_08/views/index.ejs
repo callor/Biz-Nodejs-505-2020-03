@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('include_head') %>
+    <script>
+      $(function(){
+        $(".btn-writer").click(function(){
+          document.location.href="/bbs/insert"
+        })
+        $(".bbs_tr").click(function(){
+          let id = $(this).data('id')
+          document.location.href = "/bbs/view/" + id
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <%- include ('include_header') %>
+    <section class="container-fluid p-3">
+      <table class="w3-table-all">
+          <tr>
+            <th>No</th>
+            <th>작성일자</th>
+            <th>작성시각</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>조회수</th>
+          </tr>
+          <% bbsList.forEach(function(bbs,index){  %>
+            <tr class="bbs_tr" data-id='<%- bbs.b_id %>'>
+              <td><%- index +1 %></td>
+              <td><%- bbs.b_date %></td>
+              <td><%- bbs.b_time %></td>
+              <td><%- bbs.b_writer %></td>
+              <td><%- bbs.b_subject %></td>
+              <td><%- bbs.b_count %></td>
+            </tr>
+          <% }) %>
+      </table>
+    
+    </section>
+    <section class="container-fluid">
+      <button class="w3-button w3-blue w3-right btn-writer">게시판 작성</button>
+    </section>
+  </body>
+</html>

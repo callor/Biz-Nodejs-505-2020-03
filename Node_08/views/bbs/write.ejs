@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include ('../include_head') %>
+    <script>
+        $(function(){
+
+            $("#b_text").summernote({
+                lang:"ko-KR",
+                width:"100%",
+                height:"300px"
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <%- include ('../include_header') %>
+    
+    <section class="container-fluid">
+        <form method="POST">
+            <div class="w3-container">
+                <label class="w3-label w3-text-blue" 
+                    for="b_writer">작성자</label>
+                <input name="b_writer" 
+                        id="b_writer" 
+                        value="<%- bbsVO.b_writer %>" 
+                        class="w3-input w3-border">
+            </div>
+            <div class="w3-container">
+                <label class="w3-label  w3-text-blue" 
+                    for="b_date">작성일자</label>
+                <input name="b_date" 
+                        id="b_date" 
+                        value="<%- bbsVO.b_date %>"
+                        class="w3-input w3-border">
+            </div>
+            <div class="w3-container">
+                <label class="w3-label  w3-text-blue" 
+                    for="b_time">작성시각</label>
+                <input name="b_time" 
+                        id="b_time" 
+                        value="<%- bbsVO.b_time %>"
+                        class="w3-input w3-border">
+            </div>
+            <div class="w3-container">
+                <label class="w3-label  w3-text-blue" 
+                    for="b_subject">제목</label>
+                <input name="b_subject" 
+                        id="b_subject" 
+                        value="<%- bbsVO.b_subject %>"
+                        class="w3-input w3-border">
+            </div>
+
+            <div class="w3-container">
+                <label class="w3-label  w3-text-blue" 
+                for="b_text">내용</label>
+
+                <textarea name="b_text" id="b_text" 
+                        class="w3-input w3-border"><%- bbsVO.b_text %></textarea>
+            </div>
+            <div class="w3-container">
+                <button class="w3-button w3-blue">저장</button>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
