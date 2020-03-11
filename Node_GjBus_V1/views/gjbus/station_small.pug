@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+    script(src="/javascripts/gjbus.js")
+    section.container-fluid
+        table.w3-table.w3-table-all
+            tr
+                th No
+                th 정류장ID
+                th 정류장
+                th 다음 정류장
+                th 경도
+                th 위도
+            each station,index in stations
+                tr.bus_tr(data-id=station.BUSSTOP_ID)
+                    td= station.STATION_NUM
+                    td= station.BUSSTOP_ID
+                    td= station.BUSSTOP_NAME
+                    td= station.NEXT_BUSSTOP
+                    td= station.LONGITUDE
+                    td= station.LATITUDE
+
+    p
+    hr
+    p
+    section#bustime.container-fluid

@@ -18,6 +18,8 @@ ul.main-menu {
     position: fixed;
     top: 0px;
     left:10px;
+    transition: 0.3s;
+    z-index: 10;
 
 }
 

@@ -1,0 +1,13 @@
+table.w3-table.w3-table-all
+    tr
+        th 노선번호
+        th 현재위치
+        th 도착예정시각
+        th 남은정류장
+    each bustime,index in bustimes
+        tr
+            td= bustime.LINE_NAME
+            td= bustime.BUSSTOP_NAME
+            td= bustime.REMAIN_MIN +' 분'
+            td= bustime.REMAIN_STOP + ' 전'
+
