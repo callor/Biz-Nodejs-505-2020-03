@@ -19,11 +19,11 @@ module.exports = function(app,config){
 
     // express framework에서 pagination을 구현할 객체 선언하여
     // 사용할수 있도록 초기화 
-    // 기본 limte 10, 최대 limite 50개로 설정
-    app.use(paginate.middleware(5,5))
+    // 기본 limte 10, 최대 limite 10개로 설정
+    app.use(paginate.middleware(10,10))
 
     // 한페이지에 몇개씩 보여줄것인가를 설정한 값
-    const pageLimit = req.query.limit
+    const pageLimit = 10
 
     // 이하의 router method를 실행하기전에
     // 먼저 실행하여 변수, 세팅등을 설정한 후
