@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/nav.css')
+    script(src="https://code.jquery.com/jquery-latest.min.js")
+    script(src="/javascripts/nav_scroll.js")
+
+  body
+    block navi
+      include nav
+    block content
