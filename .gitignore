@@ -64,6 +64,7 @@ RemoteSystemsTempFiles/
 dataGoKr.*
 myData.go.kr.key.js
 naver_secret.js
+naver_secret.*
 
 # ETC
 .bak
