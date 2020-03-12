@@ -1,7 +1,13 @@
 extends ../layout
 
 block content
-
+    style.
+        .elipsis {
+            width : 100px;
+            white-space : nowrap;
+            overflow : hidden;
+            text-overflow : ellipsis;
+        }
     each movie,index in movies
         div
             p
@@ -11,7 +17,7 @@ block content
                 a(href=movie.link) !{movie.title}
             p
                 img(src=movie.image)
-            p= movie.subtitle
+            p.elipsis= movie.subtitle
             p= movie.pubDate
             p= movie.director
             p= movie.actor

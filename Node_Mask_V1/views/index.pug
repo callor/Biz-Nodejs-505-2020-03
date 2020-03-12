@@ -15,6 +15,7 @@ block content
         let initLat = marketList[ marketList.length - 1].lat
         let initLng = marketList[ marketList.length - 1].lng
 
+        var markers = {}
         var map = new Tmapv2.Map("map_div",
         {
           width:'90%',
@@ -22,14 +23,23 @@ block content
           center: new Tmapv2.LatLng(initLat,initLng),
           zoom:15
         })
+        map.addListener('click',function(e){
+          
+          var lnglat = e.latLng
+          marker = new Tmapv2.Marker({
+            position : new Tmapv2.LatLng(lnglat.lat(),lnglat.lng()),
+            draggable:true,
+            map : map,
+          })
+        })
 
-        let marker = {}
 
         // 마커 찍기
         marketList.forEach(function(market,index){
-          marker[index] = new Tmapv2.Marker({
+          markers[index] = new Tmapv2.Marker({
             position : new Tmapv2.LatLng(market.lat, market.lng),
             map : map,
+            draggable:true,
             title : market.name  + "<br>"
                   + market.remain_stat  + "<br>"
                   + market.addr
@@ -52,10 +62,23 @@ block content
         th 위도
         th 경도
         th 재고상태
+      - 
+        var remain = {
+        'plenty':'충분(100개이상)',
+        'some':'보통(~30)',
+        'few':'부족(~2)',
+        'empty':'없음'}
+
       each market, index in stores
         tr 
           td= market.name
           td= market.addr
           td= market.lng
           td= market.lat
-          td= market.remain_stat
+          if market.remain_stat
+            if market.remain_stat == 'plenty'
+              td.w3-green= remain[market.remain_stat]
+            else
+              td= remain[market.remain_stat]
+          else
+            td 상태모름
