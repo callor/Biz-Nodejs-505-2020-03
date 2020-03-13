@@ -1,0 +1,201 @@
+extends layout
+
+block content
+  link(rel="stylesheet",href="/stylesheets/tooltip.css")
+  link(rel="stylesheet",href="/stylesheets/response_table.css")
+  script(src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appkey=" + tmap_api)
+  script.
+    $(function(){
+
+        $('#address').attr('data-tooltip-text',
+          '주소는 "시도 시군구 동" 과 같이 입력하세요 예) 광주광역시 북구 중흥동'
+        )
+        $('td.addr').attr('data-tooltip-text',
+          '주소를 클릭하면 해당 동명으로 다시 검색됩니다'
+          + ' "광주광역시 북구"를 검색한 후 주소를 클릭해 보세요'
+        )
+        $('td.latlng').attr('data-tooltip-text','좌표를 클릭하면 지도가 확대됩니다')
+        $('td.latlng,td.addr').css('cursor','pointer')
+
+        // 마커를 찍기 위한 위,경도 데이터를 배열로 잡기
+        // router에서 보낸 데이터를
+        // pug 파일의 js코드에서 캐취하기
+
+        let marketList = !{JSON.stringify(stores)}
+
+        // 검색한 데이터의 가장 마지막 데이터의 좌표
+        let initLat = marketList[ marketList.length - 1].lat
+        let initLng = marketList[ marketList.length - 1].lng
+
+        var width_size = $(window).width()
+        
+        var markers = {}
+        var map = new Tmapv2.Map("map_div",
+        {
+          width:(width_size <=800 ? '80%' : '90%'),
+          height:(width_size <= 800 ? '300px':'500px'),
+          center: new Tmapv2.LatLng(initLat,initLng),
+          zoom:15
+        })
+        map.addListener('click',function(e){
+          
+          var lnglat = e.latLng
+          marker = new Tmapv2.Marker({
+            position : new Tmapv2.LatLng(lnglat.lat(),lnglat.lng()),
+            draggable:true,
+            map : map,
+          })
+        })
+
+      var getRemainState = function(remain_state) {
+        var image_path = '/images/'
+        if(remain_state == 'plenty') {
+          return {msg:'<span class="w3-text-green w3-left">충분(100개이상)</span>',image : image_path + 'marker_green.png'}
+        } else if(remain_state == 'some') {
+          return {msg:'<span class="w3-text-yellow w3-left">보통(~30)</span>',image : image_path + 'marker_yellow.png'}
+        } else if(remain_state == 'few') {
+            return {msg:'<span class="w3-text-red w3-left">부족(~2)</span>',image : image_path + 'marker_red.png'}
+        } else if(remain_state == 'empty') {
+            return {msg:'<span class="w3-text-gray w3-left">없음</span>',image : image_path + 'marker_gray.png'}
+        } else if(remain_state == 'break') {
+            return {msg:'<span class="w3-text-gray w3-left">판매중단',image : image_path + 'marker_gray.png'}
+        } else {
+          return {msg:'<span class="w3-text-gray w3-left">상태모름',image : image_path + 'marker_gray.png'}
+        }
+      }
+
+        // 판매처 리스트에서 마커 찍기
+        marketList.forEach(function(market,index){
+          var markerState = getRemainState(market.remain_stat)
+          markers[index] = new Tmapv2.Marker({
+            position : new Tmapv2.LatLng(market.lat, market.lng),
+            map : map,
+            icon : markerState.image,
+            iconSize : new Tmapv2.Size(30,30),
+            draggable:true,
+            title : markerState.msg  + "<br>"
+                  + "<span class='w3-left'>" + market.name  + "</span><br>"
+                  +  "<span class='w3-left'>" + market.addr + "</span>"                    
+          })
+        })
+
+        // 좌표를 클릭하면
+        // 중심점이 이동하고 지도가 줌인
+        $(".latlng").click(function(){
+          let lng = $(this).data('lng')
+          let lat = $(this).data('lat')
+          map.setCenter(new Tmapv2.LatLng(lat,lng))
+          map.setZoom(20)
+        })
+
+        // 주소를 클릭하면 다시 검색
+        $(".addr").click(function(){
+          //- let tds = $(this).children()
+          //- let addr = tds.eq(1).text()
+          let addr = $(this).text()
+          
+          // 두번째 공백 문자까지 자르기 첫번째 방법
+          let spAddr = addr.split(" ")
+          if(spAddr.length > 2) {
+            var addrCity = spAddr[0] + " " + spAddr[1]
+          }
+
+          // 두번째 공백 문자까지 자르기 두번째 방법
+          addrCity = addr.substring(0,addr.indexOf(" ",addr.indexOf(" ") + 1))
+          
+          // 주소에서 동명 추출하기
+          // 괄호안의 문자 추출하기 
+          let dong = addr.match(/\(.*\)/gi); 
+          dong += ""; 
+          dong = dong.split("(").join(""); 
+          dong = dong.split(")").join("");
+
+          addrCity += " " + dong
+          $("#address").val(addrCity) 
+          $("form").submit()
+        })
+    
+    })
+  style.
+    #map_div {
+      margin:20px auto;
+    }
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+    }
+    
+    /* Zebra striping */
+    tr:nth-of-type(odd) { 
+      background: #eee; 
+    }
+    th { 
+      background: #333; 
+      color: white; 
+      font-weight: bold; 
+    }
+    td, th { 
+      padding:10px; 
+      border: 1px solid #ccc; 
+      text-align: left; 
+    }
+
+  div#map_div.container-fluid
+
+  .market_list.container-fluid
+    if stores.length > 0
+      table
+        thead
+          tr 
+            th 이름
+            th 주소
+            th 위도
+            th 경도
+            th 재고상태
+          - 
+            var remain = {
+              'plenty':{msg:'충분(100개이상)',classIs:['w3-green']},
+              'some':{msg:'보통(~30)',classIs:['w3-yellow']},
+              'few':{msg:'부족(~2)',classIs:['w3-red']},
+              'empty':{msg:'없음',classIs:['w3-gray']},
+              'break':{msg:'판매중단',classIs:['w3-black']}
+            }
+        tbody
+          each market, index in stores
+            if market.remain_stat
+              - var classIs = remain[market.remain_stat].classIs
+            else
+              - var classIs = 'w3-cyan'
+
+            tr(class=`${classIs}`).market_ev
+            
+              td= market.name
+              td.addr= market.addr
+              td.latlng(data-lng=market.lng, data-lat=market.lat)= market.lng
+              td.latlng(data-lng=market.lng, data-lat=market.lat)= market.lat
+              if market.remain_stat            
+                td= remain[market.remain_stat].msg
+              else
+                  td 상태모름
+  .help_doc.container-fluid
+    table.w3-table.w3-table-all
+      tr
+        th
+          h2 공공마스크 정보 제공 사이트에 오신 것을 환영합니다
+          h5 공공데이터서비스(data.go.kr)에서 제공하는 데이터를 기반으로 서비스 중입니다.
+          h5 지도 검색은 Tmap 무료 버전을 사용중입니다. 
+          h6 접속이 많을 경우 지도 서비스는 중단 될수 있습니다
+    
+      tr
+        th
+          h2 검색창에 주소를 입력한 후 Enter(모바일에서는 이동)을 누르시면 됩니다
+          h5 주소는 반드시 시도 시군구 동명 순서로 빈칸을 1칸씩 넣어서 입력해야 합니다
+          h6 예) 광주광역시 북구 중흥동
+          h6 "광주광역시 북구" 까지만 입력해도 됩니다
+    
+      tr
+        th
+          h2 검색 결과 리스트에서 주소 항목을 클릭하면 해당 "동명"으로 다시 검색을 수행합니다
+          h2 위도, 경도 항목을 클릭하면 해당 주소 위치가 줌인되고 지도 중앙에 표시가 됩니다.
+
+
