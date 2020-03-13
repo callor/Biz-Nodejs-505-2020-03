@@ -4,6 +4,9 @@ var maskDataURL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesB
 var tmapConfig = require("./tmap_sec")
 var request = require('request')
 
+/**
+ * 주소 검색 Mapping
+ */
 router.get('/search',(req,res)=>{
 
     let address = req.query.address
