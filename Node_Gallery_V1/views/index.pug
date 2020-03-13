@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  script.
+    $(function(){
+      $('button.btn-upload').click(function(){
+        document.location.href="/gallery/upload"
+      })
+    })
+  section.w3-container.w3-padding-32
+    article.w3-padding-16
+      button.w3-button.w3-white.w3-border.w3-border-blue.w3-block.btn-upload 사진올리기

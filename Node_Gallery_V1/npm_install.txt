@@ -1,0 +1,16 @@
+npm install -save cookie-parser
+npm install -save debug
+npm install -save express
+npm install -save body-parser
+npm install -save http-errors
+npm install -save pug
+npm install -save morgan
+npm install -save mongoose
+# 외부 API 활용을 위한 미들웨어
+npm install -save request
+# 페이지네이션 구현 미들웨어
+npm install -save express-paginate
+# nodejs 에서 사용하는 파일 업로드 미들웨어
+npm install -save multer
+npm install
+

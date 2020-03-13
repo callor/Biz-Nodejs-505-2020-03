@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+    script.
+        $(function(){
+            $('div').addClass('w3-padding-16')
+            $('input').addClass('w3-input w3-border w3-hover-light-gray')
+            $('label').addClass('w3-text-blue w3-bold')
+
+            $('button.btn-list').click(function(){
+                document.location.replace('/gallery') 
+            })
+            $('button.btn-save').click(function(){
+                if($("#gStrTitle").val() == '') {
+                    alert('사진 제목을 입력하세요')
+                    $("#gStrTitle").focus()
+                    return false
+                }
+                if($("#gStrText").val() == '') {
+                    alert('사진 설명을 입력하세요')
+                    $("#gStrText").focus()
+                    return false
+                }
+                if($("#gOriginalPhtoName").val() == '') {
+                    alert('사진파일을 선택하세요')
+                    return false
+                }
+                $('form').submit()
+            })
+
+        })
+    section.w3-container.w3-padding-32
+        form(method='POST',enctype='multipart/form-data')
+            div
+                label 사진제목
+                input#gStrTitle(name='gStrTitle',value=gallery.gStrTitle)
+            div
+                label 사진설명
+                input#gStrText(name='gStrText',value=gallery.gStrText)
+            div
+                label 원본사진
+                input#gOriginalPhtoName(type='file',name='gOriginalPhtoName',value=gallery.gOriginalPhtoName)
+            div
+                label 업로드한 시각
+                input#gUpLoadStartDate(type='datetime', name='gUpLoadStartDate',value=gallery.gUpLoadStartDate)
+            div
+                button(type='button').w3-button.w3-green.w3-right.btn-list 리스트로 가기
+                button(type='button').w3-button.w3-blue.w3-right.btn-save 저장
+                
