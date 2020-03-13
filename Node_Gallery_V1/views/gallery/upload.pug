@@ -10,7 +10,41 @@ block content
             $('button.btn-list').click(function(){
                 document.location.replace('/gallery') 
             })
+
+            var updateCB = function(){
+                $.ajax({
+                    url : '/gallery/update/#{gallery._id}',
+                    type : 'PUT',
+                    data : $('form').serialize()
+                })
+                .done(function(result){ // 성공했을때
+                    if(result.msg == 'OK') {
+                        alert(result.data.nModified + " 개의 변경 성공")
+                        document.location.replace('/gallery/view/#{gallery._id}')
+                    } else if ( result.msg == 'UPATE FAIL') {
+                        if(result.data.nModified < 1) {
+                            alert('데이터를 업데이트 하지 못함')
+                        }
+                    }
+                
+               })
+                .fail(function(err){ // 실패 했을때
+                    alert('서버와 통신 오류')
+                })
+                .always(function(){ // 항상
+                    // alert('항상 완료')
+                })
+            }
+
+            let version = '!{gallery.__v}'
+
             $('button.btn-save').click(function(){
+                if(version != '') {
+                    updateCB()
+                    return false
+                }
+                alert('추가')
+
                 if($("#gStrTitle").val() == '') {
                     alert('사진 제목을 입력하세요')
                     $("#gStrTitle").focus()

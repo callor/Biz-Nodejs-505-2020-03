@@ -6,7 +6,27 @@ block content
       $('button.btn-upload').click(function(){
         document.location.href="/gallery/upload"
       })
+      $("div.card_ev").click(function(){
+        let id = $(this).data('id')
+        document.location.href = '/gallery/view/' + id
+      })
     })
+  style.
+    div.card_ev {
+      cursor:pointer;
+    }
+    div.card_ev:hover img {
+      opacity : 0.5;
+      transition : 0.2s;
+    }
+
   section.w3-container.w3-padding-32
     article.w3-padding-16
       button.w3-button.w3-white.w3-border.w3-border-blue.w3-block.btn-upload 사진올리기
+    article.w3-padding-16.w3-row
+      each gallery, index in galleryList
+        div.w3-card-2.w3-col.l3.m3.s3.w3-margin.w3-round.card_ev(data-id=gallery._id)
+          img(src='/uploads/' + gallery.gUpLoadPhotoName,width='100%').w3-round
+          div.w3-container.w3-margin.w3-center
+            h3.w3-text-blue= gallery.gStrTitle
+

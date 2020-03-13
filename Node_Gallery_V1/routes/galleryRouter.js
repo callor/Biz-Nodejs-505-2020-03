@@ -43,13 +43,62 @@ var saveFile = multer({storage:saveOptions})
             .single("gOriginalPhtoName")
 
 router.get('/',(req,res)=>{
-    res.render('index')
+    galleryVO.find({})
+    .exec((err,galleries)=>{
+        res.render('index',{galleryList:galleries})
+    })
+})
+
+router.get('/view/:id',(req,res)=>{
+    let id = req.params.id
+    galleryVO.findOne({_id:id})
+    .exec((err,data)=>{
+        res.render('gallery/view',{gallery:data})
+    })
+})
+
+router.get('/update/:id',(req,res)=>{
+    let id = req.params.id
+    galleryVO.findOne({_id:id})
+    .exec((err,data)=>{
+        res.render('gallery/upload',{gallery:data})
+    })
+})
+
+// put method
+// RESTfull 방식에서 사용할수 있는 4가지 method
+//  get, post, put, delete
+// 이중 put과 delete는 ajax를 사용해야만 구현이 된다.
+router.put('/update/:id',(req,res)=>{
+
+   var id = req.params.id
+    console.log(id)
+    galleryVO.update({_id:id},{$set : req.body})
+    .exec((err,data)=>{
+        if(err) {
+            res.json({
+                msg : 'UPDATE FAIL',
+                data : data
+            })
+        } else {
+            res.json({
+                msg : 'OK',
+                data : data
+            })
+        }
+        // res.redirect('/gallery/view/' + id)
+
+
+    })
 })
 
 router.get('/upload',(req,res)=>{
     var gallery = new galleryVO()
     res.render('gallery/upload',{gallery:gallery})
 })
+
+
+
 
 /*
     파일 업로드 하기
