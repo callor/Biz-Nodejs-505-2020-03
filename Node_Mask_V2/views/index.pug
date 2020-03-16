@@ -20,13 +20,16 @@ block content
         // 마커를 찍기 위한 위,경도 데이터를 배열로 잡기
         // router에서 보낸 데이터를
         // pug 파일의 js코드에서 캐취하기
-
+        // router에서 보낸 데이터를 json 구조의 문자열로 만들어서
+        // js 코드화 시키기
         let marketList = !{JSON.stringify(stores)}
 
         // 검색한 데이터의 가장 마지막 데이터의 좌표
         let initLat = marketList[ marketList.length - 1].lat
-        let initLng = marketList[ marketList.length - 1].lng
 
+       let initLng = marketList[ marketList.length - 1].lng
+
+        // 화면의 가로 싸이즈 추출하기
         var width_size = $(window).width()
         
         var markers = {}
@@ -50,9 +53,14 @@ block content
       var getRemainState = function(remain_state) {
         var image_path = '/images/'
         if(remain_state == 'plenty') {
-          return {msg:'<span class="w3-text-green w3-left">충분(100개이상)</span>',image : image_path + 'marker_green.png'}
+          return {
+            msg:'<span class="w3-text-green w3-left">충분(100개이상)</span>',
+            image : image_path + 'marker_green.png'
+          }
         } else if(remain_state == 'some') {
-          return {msg:'<span class="w3-text-yellow w3-left">보통(~30)</span>',image : image_path + 'marker_yellow.png'}
+          return {
+            msg:'<span class="w3-text-yellow w3-left">보통(~30)</span>',
+            image : image_path + 'marker_yellow.png'}
         } else if(remain_state == 'few') {
             return {msg:'<span class="w3-text-red w3-left">부족(~2)</span>',image : image_path + 'marker_red.png'}
         } else if(remain_state == 'empty') {
@@ -66,14 +74,17 @@ block content
 
         // 판매처 리스트에서 마커 찍기
         marketList.forEach(function(market,index){
+          // getRemainState 함수를 호출하여 각 상태에 따른
+          // 메시지와 아이콘을 json형태로 return 받는다
           var markerState = getRemainState(market.remain_stat)
+
           markers[index] = new Tmapv2.Marker({
             position : new Tmapv2.LatLng(market.lat, market.lng),
             map : map,
-            icon : markerState.image,
+            icon : markerState.image, // json 데이터에서 이미지 부분 추출
             iconSize : new Tmapv2.Size(30,30),
             draggable:true,
-            title : markerState.msg  + "<br>"
+            title : markerState.msg  + "<br>" // json 데이터에서 텍스트 부분 추출
                   + "<span class='w3-left'>" + market.name  + "</span><br>"
                   +  "<span class='w3-left'>" + market.addr + "</span>"                    
           })
@@ -105,6 +116,7 @@ block content
           
           // 주소에서 동명 추출하기
           // 괄호안의 문자 추출하기 
+          // 괄호로 둘러쌓인 문자열을 추출한 정규표현식
           let dong = addr.match(/\(.*\)/gi); 
           dong += ""; 
           dong = dong.split("(").join(""); 
@@ -166,7 +178,11 @@ block content
               - var classIs = remain[market.remain_stat].classIs
             else
               - var classIs = 'w3-cyan'
-
+            // backtick(숫자 1번키 왼쪽에 ~와 같이 있는 키)
+            // 작은 따옴포 아님
+            // p `${30 + 40}` : 연산식, 값 등을 스크립트의 문자열과 같이 표현하기
+            // var str = "나는 30 + 40의 결과를 " + ( 30 + 40 )
+            // var str = `나는 30 + 40의 결과를 ${30 + 40}`
             tr(class=`${classIs}`).market_ev
             
               td= market.name
