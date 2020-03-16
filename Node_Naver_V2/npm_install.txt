@@ -1,0 +1,11 @@
+npm install -save cookie-parser
+npm install -save debug
+npm install -save express
+npm install -save body-parser
+npm install -save http-errors
+npm install -save pug
+npm install -save morgan
+npm install -save request
+npm install -save express-paginate
+npm install
+
