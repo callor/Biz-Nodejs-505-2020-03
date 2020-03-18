@@ -1,5 +1,5 @@
 {
-  "name": "node-gjbus-v1",
+  "name": "node-naver-v1",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -15,8 +15,6 @@
     "mongoose": "^5.9.4",
     "morgan": "^1.9.1",
     "pug": "^2.0.4",
-    "request": "^2.88.2",
-    "acorn": ">=5.7.4",
-    "clean-css": ">=4.1.11"
+    "request": "^2.88.2"
   }
 }

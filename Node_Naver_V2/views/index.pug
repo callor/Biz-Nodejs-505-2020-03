@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  h1 네이버 검색
+  form(action='/naver/book',method='POST')
+    input(name="search", placeholder="검색어를 입력한 후 Enter...")

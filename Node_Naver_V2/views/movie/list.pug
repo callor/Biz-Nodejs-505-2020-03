@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+    style.
+        .elipsis {
+            width : 100px;
+            white-space : nowrap;
+            overflow : hidden;
+            text-overflow : ellipsis;
+        }
+    each movie,index in movies
+        div
+            p
+                // HTML 코드에 보이는 주석
+                //- HTML 코드에 보이지 않는 주석
+                //- !{} : html tag가 포함된 문자열을 tag를 반영하면서 표현
+                a(href=movie.link) !{movie.title}
+            p
+                img(src=movie.image)
+            p.elipsis= movie.subtitle
+            p= movie.pubDate
+            p= movie.director
+            p= movie.actor
+            p= movie.useRating

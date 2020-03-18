@@ -1,0 +1,13 @@
+section.main-body {
+  display: flex;
+}
+article.main-left {
+  width: 65%;
+  margin: 10px;
+  border: 2px solid blue;
+}
+article.main-right {
+  width: 30%;
+  margin: 10px;
+  border: 2px solid green;
+}
