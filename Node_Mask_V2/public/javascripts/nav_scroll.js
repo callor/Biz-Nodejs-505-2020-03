@@ -1,6 +1,3 @@
-/**
- * 상단 메뉴 자동 스크롤링
- */
 $(function(){
     let preScroll = $(window).scrollTop()
     $(window).scroll(function(e){
