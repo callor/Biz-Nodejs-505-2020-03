@@ -12,11 +12,20 @@ const TodoMain = ({ value }) => {
     { text: "Home work", checked: false }
   ];
 
+  const todo_insert = () => {
+    let item = document.getElementById("item").value;
+    todoItems.push({
+      text: item,
+      checked: false
+    });
+    // alert(item);
+  };
+
   return (
     <main className="todoTemplete">
       <div className="title">할일</div>
       <div className="form-controller">
-        <TodoForm value={value} items={todoItems} />
+        <TodoForm value={value} onClick={todo_insert} />
       </div>
       <div className="todolist-controller">
         <TodoList />

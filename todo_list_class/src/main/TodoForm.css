@@ -1,0 +1,26 @@
+div.form {
+  display: flex;
+}
+
+div.form input {
+  flex: 1;
+  font-size: 1.25rem;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #c5f6fa;
+}
+
+div.todo-insert {
+  /* top, bottom 0.5, left와 right 1rem */
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  background-color: #22b8cf;
+  border-radius: 3px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+div.todo-insert:hover {
+  background-color: #3bc9db;
+}
