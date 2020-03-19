@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      p {
+        border: 1px solid blue;
+        padding: 10px;
+      }
+    </style>
+    <script>
+      /*
+        표준 js에서 ESC5(2015) 이후에 this draft가 되었는데
+        jq나 react 등의 js framework에서는 this 키워드가
+        매우 중요한 역할을 한다.
+
+        p1Click 함수 입장에서 this 키워드는
+        아래 본문의 첫번째 p tag의 모든것이
+        담겨 있는 tag 객체가 된다.
+
+        jq에서 $(this).attr("id"), $(this).data('id') 등을
+        사용하여 현재 클릭된 tag의 요소를 참조할수 있다.
+
+        표준 js에서 this의 scope 개념이 변경이 되면서
+        function() 키워드 방식에서는 현재 함수 내부로 scope가 되고
+        화살표 함수 방식에서는 현재 문서의 모든 것이 scope가 된다.
+
+      */
+      var p1Click = function() {
+        alert(this.document.innerText);
+        // this.style.backgroundColor = "red";
+      };
+
+      // this context의 scope
+      //    function() 타입의 함수내에서 사용되는 this는
+      //    자기 자신을 감싸고 있는 p2Click이 해당된다.
+      var p2Click = {
+        name: "홍길동",
+        age: 12,
+        getName: function() {
+          return this.name;
+        }
+      };
+
+      // this context의 scope
+      //    화살표 타입의 함수내에서 사용되는 this는
+      //    p3Click을 감싸고 있는 document 또는 window를
+      //    가리키기 때문에 클래스 내부에서 this context를 사용하여
+      //    자신의 필드(맴버)들에 접근을 할 수 없다.
+      var p3Click = {
+        name: "홍길동",
+        age: 12,
+        getName: () => {
+          return this.name;
+        }
+      };
+
+      // jqeury에서 이벤트 핸들링을 할때
+      // function() 타입의 핸들러에서는
+      //        this context를 사용하여
+      // 자신이 보유하고 있는 프로퍼티(속성)등에 접근이 가능하다
+      $("#btn").click(function() {
+        // data-id로 설정 값을 읽을수 있다
+        let id = $(this).data(id);
+      });
+
+      // 하지만 jquery에서 이벤트 핸들링을 할때
+      // 화살표 함수를 사용하면 this context를 사용하여
+      // 자신이 보유하고 있는 프로퍼티에 접근할 수 없다.
+      $("#btn").click(() => {
+        //오류가 나거나 undefined가 된다
+        let id = $(this).data(id);
+      });
+    </script>
+  </head>
+  <body>
+    <p onClick="p1Click()">P1</p>
+    <p onClick="alert( (function() { return '홍길동' } )())">P2</p>
+    <p onClick="alert( p2Click.getName() )">P3</p>
+    <p onClick="alert( p3Click.getName() )">P4</p>
+  </body>
+</html>

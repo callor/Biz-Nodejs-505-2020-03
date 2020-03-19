@@ -57,7 +57,7 @@ class App extends Component {
     }
   };
 
-  handleCreate = () => {
+  handleCreate = function() {
     const { input, todoList } = this.state;
     this.setState({
       input: "",
@@ -72,6 +72,10 @@ class App extends Component {
 
   handleToggle = id => {
     // 여기부터
+    // this : 화살표 함수로 되어있는 이벤트 핸들러는
+    //    this가 바로 현재 컴포넌트다
+    //    this = App.js 의 context
+    //      (문맥, thread의 모든 정보를 담고 있는 것)
     const { todoList } = this.state;
 
     // id 매개변수 변수에 담겨 있는 값이
@@ -111,6 +115,10 @@ class App extends Component {
   // 최초에 어플이 실행회면 한번 작동이 되고
   // 데이터나, 화면 디자인이 변경되면 호출되는 method
   render() {
+    // contructor(props) {
+    //   super(props)
+    //   this.props.bind(this)
+    // }
     // 자식 컴포넌트에 데이터를 전달하기 위해서
     // state로 선언된 데이터들을 props로 변환하기
     const { input, todoList } = this.state;

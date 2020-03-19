@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      p {
+        border: 1px solid blue;
+      }
+    </style>
+    <script>
+      var my1Click = function() {
+        alert("첫번째 tag 클릭");
+      };
+
+      // my2Click 이벤트 핸들러 함수에서
+      // 다시 func1 함수를 호출하여
+      // func1 함수의 코드를 실행한 것
+      var my2Click = () => {
+        // alert("두번째 tag 클릭");
+        func1();
+      };
+
+      var func1 = () => {
+        alert("나는 func1에서 보이는 메시지");
+      };
+    </script>
+  </head>
+  <body>
+    <p id="p1" onClick="my1Click()">첫번째</p>
+    <p id="p2" onClick="my2Click()">두번째</p>
+    <p id="p3" onClick="my2Click()">세번째</p>
+  </body>
+</html>
