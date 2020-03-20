@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+      $(function() {
+        $("#a1").click(function() {
+          alert("나는 Click Me 입니다");
+
+          return false;
+        });
+
+        $("#a2").click(function() {
+          alert("나는 no refres 입니다");
+        });
+
+        $("#form1").submit(function() {
+          alert("나는 폼이 전송될때 실행되는 이벤트 입니다");
+
+          // 유효성검사 등을 수행할수도 있다.
+          return false;
+        });
+
+        $("button").click(function() {
+          alert("나는 버튼 클릭 이벤트 입니다");
+          $("form").submit();
+        });
+      });
+
+      function trclick() {
+        alert("tr click");
+      }
+    </script>
+  </head>
+  <body>
+    <!--
+        form의 기본 이벤트에는 submit 속성이 있다.
+        form 내부에 있는 button을 클릭하거나
+        input box가 1개 있을때 Enter를 누르면
+
+        자동으로 form에 설정된 action 주소로 데이터를 전송하는 기능
+        만약 form에 action이 없으면 현재 보고있는 주소로
+        다시 redirection이 된다
+
+        이런 동작이 이루어지면서 현재 화면이 사라지고
+        다시 refresh 되는 현상이 있다
+      -->
+    <form id="form1">
+      <input placeholder="문자열 입력" name="string" />
+      <button type="button">전송</button>
+    </form>
+    <!--
+        anchar의 기본 event는  클릭을 하면
+        href 에 설정된 주소로 연결되는 기능이다
+        이때 설정된 주소로 연결이 되면서
+        현재 화면이 사라지고 새로운 화면이 나타난다.
+
+        여기에 href="#" 이라고 표현하면
+        거의 보이지 않지만 현재 페이지가 refresh 되는 현상 발생한다
+    -->
+    <a href="https://naver.com" id="a1">Click Me</a>
+    <!-- 
+        anchar의 기본 event를 무력화 시키고
+        모양만 남겨놓는 코드
+    -->
+    <a href="javasript:void(0)" id="a2">No reFresy</a>
+    <!--
+        이렇한 코드를 작성하는 이유는
+        기본 기능을 사용하지 않고
+        별도로 js(jq)에서 클릭 기능을 임의로 만들기 위한 방법
+    -->
+
+    <!-- table 이벤트 연습 -->
+    <table border="1">
+      <tr onClick="trclick()">
+        <th>11111111111</th>
+        <th>22222222222</th>
+        <th>33333333333</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+    </table>
+  </body>
+</html>
