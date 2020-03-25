@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import MPro from "../provider/MessageProvider";
+import ProFunc from "./ProFunc";
 
 class ProInsert extends Component {
   state = {
     message: "나는 Insert 컴포넌트"
   };
+
+  static contextType = MPro;
 
   // 키보드에서 입력을 하면 입력받은 문자열을
   // this.state.message에 저장해 달라
@@ -19,7 +23,7 @@ class ProInsert extends Component {
   // 호출하여 지금부터 내가 보내는 문자열을 전체 컴포넌트가
   // 공유하는 message 변수에 적용하라
   messageSend = () => {
-    this.props.changeMessage(this.state.message);
+    this.context.changeMessage(this.state.message);
   };
 
   render() {
@@ -39,6 +43,8 @@ class ProInsert extends Component {
         <input value={this.state.message} onChange={this.handleChange} />
         <button onClick={this.messageSend}>전달</button>
         <p>{message}</p>
+        <h4>함수방식 컴포넌트 가져오기</h4>
+        <ProFunc />
       </div>
     );
   }

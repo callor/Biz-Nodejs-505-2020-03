@@ -34,11 +34,8 @@ class ProMain extends Component {
         
         */}
         <MProvider.Provider value={this.state}>
-          <ProSub1 message={this.state.message} />
-          <ProSub2
-            message={this.state.message}
-            changeMessage={this.changeMessage}
-          />
+          <ProSub1 />
+          <ProSub2 />
         </MProvider.Provider>
       </div>
     );

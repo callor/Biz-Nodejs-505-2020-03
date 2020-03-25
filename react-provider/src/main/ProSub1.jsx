@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import MProvider from "../provider/MessageProvider";
 
 class ProSub1 extends Component {
   constructor(props) {
     super(props);
   }
+  static contextType = MProvider;
 
   //   componentWillMount() {}
   //   componentDidMount() {}
@@ -19,7 +21,8 @@ class ProSub1 extends Component {
 
     그래서 받은 변수를 분해하여 비구조화를 실시한다.
     */
-    const { message } = this.props;
+    // const { message } = this.props;
+    const { message } = this.context;
 
     return (
       <div>
@@ -29,7 +32,7 @@ class ProSub1 extends Component {
         원본 그대로 수신하는 방법
        
         */}
-        <p>Sub1 : {this.props.message}</p>
+        <p>Sub1 : {this.context.message}</p>
         <p>Sub1 : {message}</p>
       </div>
     );
