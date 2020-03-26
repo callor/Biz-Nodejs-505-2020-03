@@ -29,10 +29,11 @@ class BucketMain extends Component {
     const strBucketList = localStorage.bucketList;
     // 문자열, 객체일경우 if 조건에서 없으면 false, 있으면 true
     if (strBucketList) {
+      const jsonBucketList = JSON.parse(strBucketList);
       this.setState({
-        bucketList: JSON.parse(strBucketList)
+        bucketList: jsonBucketList
       });
-      this.id = this.state.bucketList.length + 1;
+      this.id = jsonBucketList.length;
     }
   }
 
