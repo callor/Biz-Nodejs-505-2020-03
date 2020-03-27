@@ -10,19 +10,18 @@ class BucketItem extends Component {
 
   render() {
     const { bucketItem } = this.props;
+
     return (
-      <tr>
+      <tr onClick={this.handleOnEditing}>
         {this.state.isEditing ? (
           <BucketItemEdit
             bucketItem={bucketItem}
             onEditing={this.handleOnEditing}
-            bucket_update={this.props.bucket_update}
           />
         ) : (
           <BucketItemView
             bucketItem={bucketItem}
             onEditing={this.handleOnEditing}
-            changFlag={this.props.changFlag}
           />
         )}
       </tr>

@@ -1,10 +1,13 @@
 import Moment from "react-moment";
 import React, { Component } from "react";
+import BucketContext from "../provider/BucketProvider";
 
 class BucketItemEdit extends Component {
   state = {
     bucket_title: ""
   };
+
+  static contextType = BucketContext;
 
   /*
   view 모드에서 edit 모드로 변경될때
@@ -29,16 +32,21 @@ class BucketItemEdit extends Component {
   };
 
   onKeyPress = ev => {
+    const { bucket_update } = this.context;
+    const { bucketItem, onEditing } = this.props;
+    const { bucket_title } = this.state;
+
     if (ev.key === "Enter") {
       // alert(this.state.bucket_title);
       // 현재 리스트의 id값과 새로 입력한 버킷 문자열을
       // Main으로 전송하여 update를 수행하도록 실시
-      this.props.bucket_update(
-        this.props.bucketItem.b_id,
-        this.state.bucket_title
-      );
-      this.props.onEditing();
+      bucket_update(bucketItem.b_id, bucket_title);
+      onEditing();
     }
+  };
+
+  noClick = ev => {
+    ev.stopPropagation();
   };
 
   render() {
@@ -68,6 +76,7 @@ class BucketItemEdit extends Component {
             value={this.state.bucket_title}
             onKeyPress={this.onKeyPress}
             onChange={this.onChange}
+            onClick={this.noClick}
           />
         </td>
         <td>

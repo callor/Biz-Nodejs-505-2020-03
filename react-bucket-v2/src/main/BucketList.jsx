@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import BucketItem from "./BucketItem";
+import BucketContext from "../provider/BucketProvider";
 
 class BucketList extends Component {
+  static contextType = BucketContext;
+
   render() {
-    const { bucketList } = this.props;
+    const { bucketList } = this.context;
 
     const list = bucketList.map(bucket => (
-      <BucketItem
-        key={bucket.b_id}
-        bucket_update={this.props.bucket_update}
-        bucketItem={bucket}
-        changFlag={this.props.changFlag}
-      />
+      <BucketItem key={bucket.b_id} bucketItem={bucket} />
     ));
 
     /*

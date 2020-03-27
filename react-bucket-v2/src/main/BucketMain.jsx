@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BucketInsert from "./BucketInsert";
 import BucketList from "./BucketList";
+import BucketContext from "../provider/BucketProvider";
 
 class BucketMain extends Component {
   id = 0;
@@ -16,7 +17,11 @@ class BucketMain extends Component {
         b_end_check: false,
         b_cancle: false
       }
-    ]
+    ],
+    changFlag: id => this.changFlag(id),
+    bucket_update: (id, b_title) => this.bucket_update(id, b_title),
+    bucket_add: b_title => this.bucket_add(b_title),
+    bucket_complet: (id, b_end_date) => this.bucket_complet(id, b_end_date)
   };
 
   // 17 이후는 사용불가
@@ -126,6 +131,10 @@ class BucketMain extends Component {
     });
   };
 
+  bucket_complet = (id, b_end_date) => {
+    alert(id + "완료" + b_end_date);
+  };
+
   // react lifeCycle 메서드
   /*
   만약 현재 Main 컴포넌트에 많은 state 변수들이 있을때
@@ -143,12 +152,10 @@ class BucketMain extends Component {
   render() {
     return (
       <div>
-        <BucketInsert bucket_add={this.bucket_add} />
-        <BucketList
-          bucket_update={this.bucket_update}
-          bucketList={this.state.bucketList}
-          changFlag={this.changFlag}
-        />
+        <BucketContext.Provider value={this.state}>
+          <BucketInsert />
+          <BucketList />
+        </BucketContext.Provider>
       </div>
     );
   }
