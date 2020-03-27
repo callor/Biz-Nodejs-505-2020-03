@@ -16,7 +16,8 @@ const BucketProvider = createContext({
   changFlag: id => {},
   bucket_add: b_title => {},
   bucket_update: (id, b_title) => {},
-  bucket_complet: (id, b_end_date) => {}
+  bucket_complet: (id, b_end_date) => {},
+  toggleCancel: id => {}
 });
 
 export default BucketProvider;

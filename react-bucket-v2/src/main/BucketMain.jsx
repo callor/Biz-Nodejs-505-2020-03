@@ -15,13 +15,14 @@ class BucketMain extends Component {
         b_title: "리액트 정복",
         b_end_date: "",
         b_end_check: false,
-        b_cancle: false
+        b_cancel: false
       }
     ],
     changFlag: id => this.changFlag(id),
     bucket_update: (id, b_title) => this.bucket_update(id, b_title),
     bucket_add: b_title => this.bucket_add(b_title),
-    bucket_complet: (id, b_end_date) => this.bucket_complet(id, b_end_date)
+    bucket_complet: (id, b_end_date) => this.bucket_complet(id, b_end_date),
+    toggleCancel: id => this.toggleCancel(id)
   };
 
   // 17 이후는 사용불가
@@ -106,7 +107,7 @@ class BucketMain extends Component {
       b_title: b_title,
       b_end_date: "",
       b_end_check: false,
-      b_cancle: false
+      b_cancel: false
     };
 
     this.setState({
@@ -131,8 +132,42 @@ class BucketMain extends Component {
     });
   };
 
+  // 완료선택이 이루어 지면 bucketList를 map으로 반복하면서
+  // id 값과 일치하는 항목을 찾고
+  // 있으면 해당 항목을 변경하는 작업 수행
   bucket_complet = (id, b_end_date) => {
-    alert(id + "완료" + b_end_date);
+    // alert(id + ":완료:" + b_end_date);
+    const { bucketList } = this.state;
+
+    this.setState({
+      bucketList: bucketList.map(bucket => {
+        // id 값과 일치하는 리스트가 있느나?
+        if (bucket.b_id === id) {
+          const date = new Date();
+          // 현재 항목의 b_end_date 값이 없느냐?
+          // 없으면 새로만든 date 값을 사용하고
+          // 있으면 값을 지우는 "" 으로 사용하겠다
+          const end_date = bucket.b_end_date === "" ? date : "";
+          return { ...bucket, b_end_date: end_date };
+        } else {
+          return bucket;
+        }
+      })
+    });
+  };
+
+  toggleCancel = id => {
+    const { bucketList } = this.state;
+    this.setState({
+      bucketList: bucketList.map(bucket => {
+        if (bucket.b_id === id) {
+          // bucket.b_cancel 값을 true -> false, false -> trhe
+          return { ...bucket, b_cancel: !bucket.b_cancel };
+        } else {
+          return bucket;
+        }
+      })
+    });
   };
 
   // react lifeCycle 메서드
