@@ -1,7 +1,8 @@
 import Moment from "react-moment";
 import React, { Component } from "react";
 import BucketContext from "../provider/BucketProvider";
-import BucketItem from "./BucketItem";
+
+import { reactCSS } from "reactcss";
 
 class BucketItemView extends Component {
   static contextType = BucketContext;
@@ -66,20 +67,37 @@ class BucketItemView extends Component {
   };
 
   toggleCancel = () => {
-    if (this.props.bucketItem.b_end_date !== "") {
+    const { bucketItem } = this.props;
+    if (bucketItem.b_end_date !== "") {
       alert("완료된 버킷은 취소할수 없습니다");
       return false;
     }
-    if (window.confirm("버킷을 취소하겠습니까?")) {
-      this.context.toggleCancel(this.props.bucketItem.b_id);
+    const msg = bucketItem.b_cancel
+      ? "버킷 취소를 해제합니다"
+      : "버킷을 취소하겠습니까?";
+    if (!window.confirm(msg)) {
+      return false;
     }
+    this.context.toggleCancel(bucketItem.b_id);
   };
 
   render() {
     const { bucketItem } = this.props;
-    const td_style = {
-      cursor: "pointer"
-    };
+
+    const styles = reactCSS({
+      default: {
+        tdStyle: {
+          cursor: "pointer"
+        }
+      },
+      hover: {
+        tdStyle: {
+          bbackground: "#333",
+          color: "yellow"
+        }
+      }
+    });
+
     const td_through = {
       cursor: "pointer",
       textDecorationLine: "line-through",
@@ -91,7 +109,7 @@ class BucketItemView extends Component {
 
     return (
       <React.Fragment>
-        <td style={td_style} onClick={this.handleChangFlag}>
+        <td style={styles.tdStyle} onClick={this.handleChangFlag}>
           {bucketItem.b_flag_text}
         </td>
         <td onClick={this.noChangEdit}>
@@ -99,12 +117,12 @@ class BucketItemView extends Component {
           <Moment format="YYYY-MM-DD">{bucketItem.b_start_date}</Moment>
         </td>
         <td
-          style={bucketItem.b_end_date !== "" ? td_through : td_style}
+          style={bucketItem.b_end_date !== "" ? td_through : styles.tdStyle}
           onClick={this.changeEdit}
         >
           {bucketItem.b_title}
         </td>
-        <td style={td_style} onClick={this.onComplete}>
+        <td style={styles.tdStyle} onClick={this.onComplete}>
           {/*
         
         // react에서 조건별로 tag를 표시하고자 할때
