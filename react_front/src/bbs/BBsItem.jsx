@@ -15,8 +15,22 @@ class BBsItem extends Component {
     super(props);
   }
 
+  /*
+  BBsList로 부터 리스트 1줄을 받아서 render 를 실제로 수행
+  bbsVO에 리스트 1줄이 담겨 전달되고
+  key에는 bbsVO 리스트 1줄의 id값이 담겨 전달된다.
+
+  */
   render() {
-    return <div></div>;
+    const { bbsVO, key } = this.props;
+
+    return (
+      <tr key={key}>
+        <td>{bbsVO.bbsDate}</td>
+        <td>{bbsVO.bbsAuth}</td>
+        <td>{bbsVO.bbsTitle}</td>
+      </tr>
+    );
   }
 }
 

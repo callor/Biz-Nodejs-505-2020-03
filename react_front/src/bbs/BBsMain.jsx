@@ -21,8 +21,28 @@ class BBsMain extends Component {
   };
 
   render() {
+    /*
+    자식 컴포넌트에게 state 변수를 전달하려면
+    변수명 = {this.state} 형식으로 보내고
+    자식 컴포넌트에서는 this.props.변수명 형식으로 
+    변수를 사용해야한다
+
+    변수명 = {this.state.변수명} 형식으로 보내고
+    자식 컴포넌트에서는 this.props.변수형 형식으로
+    변수를 사용해야한다.
+
+    코드가 약간 번잡스러워 지기때문에
+    부모 컨테이너에서 비구조화 작업을 수행한 후
+    변수를 전달해주도록 한다.
+    const { 변수명 } = this.state 형식으로
+    변수명을 분해(= 비구조화 작업)하여 보내도록 한다.
+    */
     const { bbsList } = this.state;
-    return <BBsList />;
+    return (
+      <div className="container">
+        <BBsList bbsList={bbsList} />
+      </div>
+    );
   }
 
   // 서버로 부터 데이터를 가져오는 method
@@ -30,11 +50,11 @@ class BBsMain extends Component {
   fetchBBsList = () => {
     fetch(BBS_FETCH_URL)
       .then((res) => {
-        console.log(res.json());
+        // console.log(res.json());
         return res.json();
       })
       .then((result) => {
-        this.state({
+        this.setState({
           bbsList: result,
         });
       })
