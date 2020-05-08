@@ -10,12 +10,14 @@ class bbsList extends Component {
 
     return (
       <table className="table table-striped table-hover">
-        <tr>
-          <th>날짜</th>
-          <th>작성자</th>
-          <th>제목</th>
-        </tr>
-        {bbsMap}
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>작성자</th>
+            <th>제목</th>
+          </tr>
+        </thead>
+        <tbody>{bbsMap}</tbody>
       </table>
     );
   }

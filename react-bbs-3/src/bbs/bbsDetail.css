@@ -1,0 +1,23 @@
+.info_wrap {
+  width: 100%;
+  border: solid 1px blue;
+  padding: 16px;
+}
+
+.info {
+  font-size: 20px;
+}
+
+.info_title,
+.info_text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #263959;
+  padding-bottom: 10px;
+}
+
+.info_text {
+  border: 1px solid green;
+  margin: 20px 0 10px 0;
+  padding: 6px;
+}

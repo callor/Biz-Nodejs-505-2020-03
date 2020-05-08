@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import BBsMain from "./bbs/bbsMain";
 import BBsWrite from "./bbs/bbsWrite";
 import BBsDetail from "./bbs/bbsDetail";
@@ -21,7 +21,10 @@ function App() {
       <Router>
         <MainNav />
         <Route exact path="/" component={BBsMain} />
-        <Route path="/bbsWrite" component={BBsWrite} />
+        <Switch>
+          <Route path="/bbsWrite/:bbsid" component={BBsWrite} />
+          <Route path="/bbsWrite/" component={BBsWrite} />
+        </Switch>
         <Route path="/bbsDetail/:bbsid" component={BBsDetail} />
       </Router>
     </div>

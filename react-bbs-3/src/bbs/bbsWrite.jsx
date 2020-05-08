@@ -3,6 +3,7 @@ import axios from "axios";
 
 class bbsWrite extends React.Component {
   state = {
+    id: 0,
     bbsDate: "",
     bbsAuth: "",
     bbsTitle: "",
@@ -24,6 +25,7 @@ class bbsWrite extends React.Component {
   */
   bbsInsert = () => {
     let formData = new FormData();
+    formData.append("id", this.state.id);
     formData.append("bbsDate", this.state.bbsDate);
     formData.append("bbsAuth", this.state.bbsAuth);
     formData.append("bbsTitle", this.state.bbsTitle);
@@ -31,10 +33,43 @@ class bbsWrite extends React.Component {
     axios
       .post("http://localhost:8080/bbs/api/insert", formData)
       .then((result) => {
-        this.props.history.push("/");
+        // alert(JSON.stringify(result));
+        const bbsid = result.data.id;
+        this.props.history.push("/bbsDetail/" + bbsid);
       })
       .catch((error) => console.log(error));
   };
+
+  bbsDetailFetch = () => {
+    // 만약 ...bbsid 값이 undefined이면 0을 id에 저장하고
+    // 그렇지 않으면 그 문자열을 id에 저장하라
+    const id = this.props.match.params.bbsid || 0;
+    // id = this.props.match.params.bbsid == 'undefined'
+    //    ? 0
+    //    : ...bbsid
+    if (id == 0) return;
+
+    fetch("http://localhost:8080/bbs/api/detail?bbsid=" + id)
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        this.setState({
+          id: result.id,
+          bbsDate: result.bbsDate,
+          bbsAuth: result.bbsAuth,
+          bbsTitle: result.bbsTitle,
+          bbsText: result.bbsText,
+        });
+      });
+  };
+
+  componentDidMount() {
+    this.bbsDetailFetch();
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
 
   handleOnChange = (e) => {
     this.setState({
