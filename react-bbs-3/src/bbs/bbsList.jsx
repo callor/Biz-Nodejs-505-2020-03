@@ -9,7 +9,7 @@ class bbsList extends Component {
     });
 
     return (
-      <table className="table">
+      <table className="table table-striped table-hover">
         <tr>
           <th>날짜</th>
           <th>작성자</th>
