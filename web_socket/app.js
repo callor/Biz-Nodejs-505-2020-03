@@ -29,6 +29,7 @@ const sessionMiddleware = session({
   autoRemoveInterval: 60,
 });
 
+app.io = require("socket.io")();
 app.io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
 });
