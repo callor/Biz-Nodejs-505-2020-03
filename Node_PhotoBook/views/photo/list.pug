@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    script.
+        $(function(){
+            $("button.upload").click(function(){
+                document.location.href = "/photo/upload"
+            })
+        })
+ 
+    
+    section
+        h3 사진리스트보기
+
+    section
+        button.btn.btn-primary.upload 사진업로드
