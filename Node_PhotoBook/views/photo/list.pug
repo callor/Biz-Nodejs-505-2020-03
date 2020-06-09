@@ -6,11 +6,20 @@ block content
             $("button.upload").click(function(){
                 document.location.href = "/photo/upload"
             })
+
+            $(".image-view").click(function(){
+                let id = $(this).data('id')
+                document.location.href="/photo/view/" + id
+
+            })
         })
  
-    
-    section
-        h3 사진리스트보기
+    section.container-fluid.row
+        each photo,index in photos
+            .card.image-view(style="width:300px;height:300px;",data-id=photo._id).m-2
+                .card-header= photo.pTitle 
+                img.card-img-top(src="/images/" + photo.pPhotoName)
+                .card-body= photo.pText
 
-    section
+    section.container-fluid.text-right
         button.btn.btn-primary.upload 사진업로드

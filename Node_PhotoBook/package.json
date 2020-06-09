@@ -11,6 +11,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "express-paginate": "^1.0.0",
+    "fs": "^0.0.1-security",
     "http-errors": "^1.7.3",
     "mongoose": "^5.9.18",
     "morgan": "^1.10.0",
