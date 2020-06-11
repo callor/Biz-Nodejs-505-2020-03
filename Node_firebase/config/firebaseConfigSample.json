@@ -1,0 +1,9 @@
+{
+  "apiKey": "MY API KEY",
+  "authDomain": "mydomain.firebaseapp.com",
+  "databaseURL": "https://mydomain.firebaseio.com",
+  "projectId": "MY API ID",
+  "storageBucket": "mydomain.appspot.com",
+  "messagingSenderId": "00000",
+  "appId": "appID"
+}

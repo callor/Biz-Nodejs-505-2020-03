@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  script.
+    $(function() {
+      $("button.bbs-write").click(function(){
+        document.location.href="/bbs/input"        
+      })
+    })
+  section.container-fluid
+    table.table.table-striped
+      tr
+        th NO
+        th 작성일자
+        th 작성시각
+        th 작성자
+        th  제목
+      each bbs, index in bbsList
+        tr
+          td= index
+          td= bbs.b_date
+          td= bbs.b_time
+          td= bbs.b_writer
+          td= bbs.b_title
+    .container.text-right
+      button.btn.btn-primary.bbs-write 작성
+
+
+
+
