@@ -2,7 +2,6 @@
 var firebase = require("firebase");
 require("firebase/auth");
 require("firebase/firestore");
-
 const firebaseConfig = require("../config/firebaseConfig.json");
 firebase.initializeApp(firebaseConfig);
 
@@ -17,6 +16,7 @@ moment.tz.setDefault("Asia/Seoul");
 router.get("/", (req, res, next) => {
   var db = firebase.database();
   db.ref("bbs")
+    .orderByKey()
     .once("value")
     .then((resultSet) => {
       var bbsList = [];
