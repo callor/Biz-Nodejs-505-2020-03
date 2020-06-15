@@ -102,6 +102,7 @@ router.post("/input", (req, res) => {
   // form에서 전송되어온 seq 값이 없으면
   // 새로운 seq를 생성해서 insert 상태로 만들고
   // 날짜와 시각을 생성하여 data(req.body) 에 추가
+  // js 에서 "", undefined  값은 모두 false로 인식
   if (!seq) {
     // moment를 사용하여
     // 현재 날짜를 년-월-일 형태의 문자열로 추출하기

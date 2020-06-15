@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+    script.
+        $(function(){
+            $("button.btn-primary").click(function(){
+                document.location.href="/bbs"
+            })
+            $("button.btn-success").click(function(){
+                document.location.href="/bbs/update/!{bbs.seq}"
+            })
+            $("button.btn-warning").click(function(){
+                if(confirm("정말 삭제할까요?")) {
+                    document.location.href="/bbs/delete/!{bbs.seq}"
+                }
+            })
+        })
+
+    section.container-fluid
+        div.card
+            div.card-title= bbs.b_title
+            div.card-body= bbs.b_text
+            div.card-footer= bbs.b_writer
+
+    section.container-fluid.text-right
+        button.btn.btn-primary.m-2 리스트로가기
+        button.btn.btn-success.m-2 수정
+        button.btn.btn-warning.m-2 삭제
