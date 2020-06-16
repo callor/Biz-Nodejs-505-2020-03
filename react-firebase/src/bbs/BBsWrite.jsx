@@ -16,9 +16,11 @@ class BBsWrite extends Component {
 
   bbsInsert = () => {
     var newKey = this.state.seq;
+    console.log("seq", newKey);
     if (!newKey) {
       newKey = database.ref().child("bbs").push().key;
     }
+    console.log("new", newKey);
 
     database
       .ref("bbs/" + newKey)
@@ -104,7 +106,7 @@ class BBsWrite extends Component {
         <div className="button-group text-right">
           <button
             type="button"
-            onClick={this.state.seq ? this.bbsInsert : this.bbsUpdate}
+            onClick={this.bbsInsert}
             className="btn btn-primary"
           >
             저장

@@ -11,7 +11,7 @@ const MainMenu = () => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/bbs" className="nav-link text-white">
+          <Link to="/bbsWrite" className="nav-link text-white">
             자유게시판
           </Link>
         </li>
