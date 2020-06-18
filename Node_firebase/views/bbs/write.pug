@@ -14,6 +14,7 @@ block content
                 $("form").submit()
             })
 
+            // 자동저장 시간 설정(초단위)
             let interval = 10;
 
             let autoSave = function() {
@@ -48,9 +49,6 @@ block content
                 $("#b_write").val(localStorage.getItem("b_write"))
                 
             }
-
-
-
         })
 
     section.container-flud.m-5
