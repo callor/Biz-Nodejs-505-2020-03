@@ -20,6 +20,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// session을 view 에서 변수로 사용하기 위해서
+app.use(function (req, res, next) {
+  res.locals = req.session;
+  next();
+});
+
+// 전체 view에서 공용으로 사용할 전역변수선언하기
+let myHome = "우리나라";
+global.myHome = myHome;
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/bbs", bbsRouter);

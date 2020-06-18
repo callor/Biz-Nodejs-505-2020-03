@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { database } from "../config/firebaseConfig";
 import moment from "moment";
+import "moment-timezone";
 
 class BBsWrite extends Component {
   state = {
@@ -15,6 +16,9 @@ class BBsWrite extends Component {
   };
 
   bbsInsert = () => {
+    /*
+    seq값이 있으면 update, 없으면 새로운 키 작성하고 insert
+    */
     var newKey = this.state.seq;
     console.log("seq", newKey);
     if (!newKey) {
@@ -22,12 +26,18 @@ class BBsWrite extends Component {
     }
     console.log("new", newKey);
 
+    /*
+    원격 서버에 deploy를 하면
+    시간대 문제로 날짜와 시간에 문제가 발생할 수 있다
+    이때 moment().tz("Asia/Seoul").format() 을 추가하면
+    대한민국 표준시로 날짜, 시간을 설정할 수 있다.
+    */
     database
       .ref("bbs/" + newKey)
       .set({
         seq: newKey,
-        b_date: moment().format("YYYY-MM-DD"),
-        b_time: moment().format("HH:mm:ss"),
+        b_date: moment().tz("Asia/Seoul").format("YYYY-MM-DD"),
+        b_time: moment().tz("Asia/Seoul").format("HH:mm:ss"),
         b_title: this.state.b_title,
         b_write: this.state.b_write,
         b_text: this.state.b_text,
@@ -39,6 +49,9 @@ class BBsWrite extends Component {
       });
   };
 
+  /*
+  화면이 rendering 될때 seq키를 조회하여 데이터 가져오기
+  */
   componentDidMount() {
     this.bbsItemFetch();
   }

@@ -8,8 +8,49 @@ block content
                 document.location.href="/bbs"
             })
             $(".bbs-write").click(function(){
+                localStorage.removeItem("b_title")
+                localStorage.removeItem("b_text")
+                localStorage.removeItem("b_write")
                 $("form").submit()
             })
+
+            let interval = 10;
+
+            let autoSave = function() {
+                let b_title = $("#b_title").val()
+                let b_text = $("#b_text").val()
+                let b_write = $("b_writer").val();
+
+                // localStorage에 자동저장
+                localStorage.setItem("b_title",b_title)
+                localStorage.setItem("b_text",b_text)
+                localStorage.setItem("b_writer",b_write)
+
+                // 자동저장 메시지 표시
+                $(".autoSave").text("auto Save")
+
+            }
+
+            // interval 초마다 한번식 실행
+            setTimeout(autoSave,interval * 1000);
+
+            // 글쓰기 화면으로 들어오면
+            // 저장된 글 내용 복원
+            if(localStorage.getItem("b_title")) {
+                $("#b_title").val(localStorage.getItem("b_title"))
+                
+            }
+            if(localStorage.getItem("b_text")) {
+                $("#b_text").val(localStorage.getItem("b_text"))
+                
+            }
+            if(localStorage.getItem("b_write")) {
+                $("#b_write").val(localStorage.getItem("b_write"))
+                
+            }
+
+
+
         })
 
     section.container-flud.m-5
@@ -20,6 +61,7 @@ block content
                 input#b_writer(name="b_writer",value= bbs.b_writer,placeholder="작성자").form-control
             .form-group
                 input#b_text(name="b_text",value= bbs.b_text,placeholder="내용").form-control                                
+                div.autoSave
             .form-group.text-right.p-2
                 input(type="button",value="리스트로가기").btn.btn-success.bbs-list.m-1
                 input(type="button",value="저장").btn.btn-primary.bbs-write.m-1
