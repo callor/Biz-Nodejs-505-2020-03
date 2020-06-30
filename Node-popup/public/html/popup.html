@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <style>
+    input {
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    function add_row() {
+      let name = $("#name").val();
+      let addr = $("#addr").val();
+      let tel = $("#tel").val();
+      let rrn = $("#rrn").val();
+
+      alert(name);
+      let trow = $("<tr/>");
+      trow.append($("<td/>", { id: "name", text: name }));
+      trow.append($("<td/>", { id: "addr", text: addr }));
+      trow.append($("<td/>", { id: "tel", text: tel }));
+      trow.append($("<td/>", { id: "rrn", text: rrn }));
+
+      $("#tbody", opener.document).append(trow);
+    }
+  </script>
+
+  <body>
+    <input type="text" id="name" value="" /><br />
+    <input type="text" id="addr" value="" /><br />
+    <input type="text" id="tel" value="" /><br />
+    <input type="text" id="rrn" value="" /><br />
+
+    <input type="button" value="저장" id="button" onclick="add_row()" />
+  </body>
+</html>

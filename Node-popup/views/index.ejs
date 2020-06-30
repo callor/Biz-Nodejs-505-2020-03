@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+  <style>
+    .table {
+      border: 1px solid black;
+    }
+
+    .button {
+      float: right;
+      margin-right: 50px;
+    }
+  </style>
+  <script>
+    var openWin;
+    function showPopup() {
+      window.name = "homework";
+      openWin = window.open(
+        "/html/popup.html",
+        "_new",
+        "width=400, height=400, right=1000, top=50"
+      );
+    }
+  </script>
+
+  <body>
+    <input type="button" onclick="showPopup();" class="button" value="추가" />
+    <table class="table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>주소</th>
+          <th>전화번호</th>
+          <th>주민등록번호</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <!-- <td type="text" name="name" , id="name"></td>
+                <td type="text" name="addr" , id="addr"></td>
+                <td type="text" name="tel" , id="tel"></td>
+                <td type="text" name="rrn" , id="rrn"></td> -->
+      </tbody>
+    </table>
+  </body>
+</html>
