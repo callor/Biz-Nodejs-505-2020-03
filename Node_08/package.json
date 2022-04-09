@@ -13,7 +13,7 @@
     "ejs-lint": "^1.0.1",
     "express": "^4.16.4",
     "http-errors": "^1.6.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.28",
     "morgan": "^1.9.1",
     "mysql2": "^2.1.0",
