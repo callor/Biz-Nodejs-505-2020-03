@@ -11,7 +11,7 @@
     "ejs": "*",
     "express": "*",
     "http-errors": "*",
-    "mongoose": "^8.8.3",
+    "mongoose": "^8.9.5",
     "morgan": "*",
     "pug": "^3.0.1"
   }
