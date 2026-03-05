@@ -15,7 +15,7 @@
     "http-errors": "^1.7.3",
     "mongoose": "^6.13.6",
     "morgan": "^1.10.0",
-    "multer": "^2.1.0",
+    "multer": "^2.1.1",
     "pug": "^3.0.0",
     "request": "^2.88.2"
   }
